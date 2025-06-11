@@ -23,10 +23,7 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-8">
             <Link to="/" className="flex items-center space-x-3">
               <div className="text-2xl">🏗️</div>
-              <div>
-                <div className="text-xl font-bold text-sukut-primary">Sukut Portal</div>
-                <div className="text-xs text-gray-500 -mt-1">Construction Management</div>
-              </div>
+              <div className="text-xl font-bold text-sukut-primary">Sukut Portal</div>
             </Link>
 
             <nav className="hidden md:flex space-x-6">
@@ -40,7 +37,9 @@ const Header: React.FC = () => {
                 <Link
                   to="/admin"
                   className={isActive('/admin') ? 'nav-link-active' : 'nav-link'}
-                >\n                  Admin Panel\n                </Link>
+                >
+                  Admin Panel
+                </Link>
               )}
             </nav>
           </div>

@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+import { ChatProvider } from './context/ChatContext'
 import Layout from './components/layout/Layout'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import ErrorBoundary from './components/ui/ErrorBoundary'
@@ -24,7 +25,8 @@ function App() {
   return (
     <ErrorBoundary>
       <AuthProvider>
-        <Router>
+        <ChatProvider>
+          <Router>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={
@@ -56,7 +58,8 @@ function App() {
             } />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </Router>
+          </Router>
+        </ChatProvider>
       </AuthProvider>
     </ErrorBoundary>
   )

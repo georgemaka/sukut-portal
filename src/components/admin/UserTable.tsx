@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
-import { User } from '../../types'
+import { User, BulkOperation } from '../../types'
 import { getRoleInfo } from '../../config/roles'
+import { getUserAccessibleApps } from '../../config/permissionGroups'
+import UserModal from './UserModal'
+import BulkActions from './BulkActions'
 
 // Mock additional users for the admin panel
 const MOCK_ADMIN_USERS: User[] = [
@@ -96,11 +99,18 @@ const MOCK_ADMIN_USERS: User[] = [
   }
 ]
 
-const UserTable: React.FC = () => {
-  const [users] = useState<User[]>(MOCK_ADMIN_USERS)
+interface UserTableProps {
+  showUserModal: boolean
+  setShowUserModal: (show: boolean) => void
+}
+
+const UserTable: React.FC<UserTableProps> = ({ showUserModal, setShowUserModal }) => {
+  const [users, setUsers] = useState<User[]>(MOCK_ADMIN_USERS)
   const [searchTerm, setSearchTerm] = useState('')
   const [filterRole, setFilterRole] = useState<string>('all')
   const [filterStatus, setFilterStatus] = useState<string>('all')
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
+  const [editingUser, setEditingUser] = useState<User | null>(null)
 
   // Filter users based on search and filters
   const filteredUsers = users.filter(user => {
@@ -151,6 +161,43 @@ const UserTable: React.FC = () => {
     }
   }
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedUserIds(filteredUsers.map(u => u.id))
+    } else {
+      setSelectedUserIds([])
+    }
+  }
+
+  const handleSelectUser = (userId: string) => {
+    if (selectedUserIds.includes(userId)) {
+      setSelectedUserIds(selectedUserIds.filter(id => id !== userId))
+    } else {
+      setSelectedUserIds([...selectedUserIds, userId])
+    }
+  }
+
+  const handleBulkAction = (operation: BulkOperation) => {
+    console.log('Bulk operation:', operation)
+    // In a real app, this would make an API call
+    // For now, just clear selection
+    setSelectedUserIds([])
+  }
+
+  const handleSaveUser = (userData: any) => {
+    if (editingUser) {
+      setUsers(users.map(u => u.id === editingUser.id ? { ...u, ...userData } : u))
+    } else {
+      const newUser: User = {
+        id: `user-${Date.now()}`,
+        ...userData,
+        createdAt: new Date().toISOString(),
+        status: 'active'
+      }
+      setUsers([...users, newUser])
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Search and Filters */}
@@ -194,11 +241,26 @@ const UserTable: React.FC = () => {
         Showing {filteredUsers.length} of {users.length} users
       </div>
 
+      {/* Bulk Actions */}
+      <BulkActions
+        selectedUserIds={selectedUserIds}
+        onBulkAction={handleBulkAction}
+        onClearSelection={() => setSelectedUserIds([])}
+      />
+
       {/* Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              <th className="px-6 py-3">
+                <input
+                  type="checkbox"
+                  checked={filteredUsers.length > 0 && selectedUserIds.length === filteredUsers.length}
+                  onChange={(e) => handleSelectAll(e.target.checked)}
+                  className="h-4 w-4 text-sukut-primary border-gray-300 rounded"
+                />
+              </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 User
               </th>
@@ -217,6 +279,9 @@ const UserTable: React.FC = () => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Created
               </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Apps Access
+              </th>
               <th className="relative px-6 py-3">
                 <span className="sr-only">Actions</span>
               </th>
@@ -225,8 +290,17 @@ const UserTable: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredUsers.map((user) => {
               const roleInfo = getRoleInfo(user.role)
+              const accessibleApps = getUserAccessibleApps(user.permissions)
               return (
                 <tr key={user.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <input
+                      type="checkbox"
+                      checked={selectedUserIds.includes(user.id)}
+                      onChange={() => handleSelectUser(user.id)}
+                      className="h-4 w-4 text-sukut-primary border-gray-300 rounded"
+                    />
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="w-10 h-10 bg-sukut-primary rounded-full flex items-center justify-center text-white font-medium text-sm">
@@ -259,9 +333,18 @@ const UserTable: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {formatDate(user.createdAt)}
                   </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {accessibleApps.length} apps
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center space-x-2">
-                      <button className="text-sukut-primary hover:text-blue-900">
+                      <button 
+                        onClick={() => {
+                          setEditingUser(user)
+                          setShowUserModal(true)
+                        }}
+                        className="text-sukut-primary hover:text-blue-900"
+                      >
                         Edit
                       </button>
                       <button className="text-red-600 hover:text-red-900">
@@ -285,6 +368,18 @@ const UserTable: React.FC = () => {
           </p>
         </div>
       )}
+
+      {/* User Modal */}
+      <UserModal
+        isOpen={showUserModal}
+        onClose={() => {
+          setShowUserModal(false)
+          setEditingUser(null)
+        }}
+        user={editingUser}
+        users={users}
+        onSave={handleSaveUser}
+      />
     </div>
   )
 }

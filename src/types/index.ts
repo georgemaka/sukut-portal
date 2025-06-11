@@ -7,6 +7,7 @@ export interface User {
   permissions: {
     apps: string[]
     features: string[]
+    groups?: string[]
   }
   company: string
   department?: string
@@ -63,5 +64,75 @@ export interface UpdateUserData extends Partial<CreateUserData> {
   id: string
 }
 
+export interface PermissionGroup {
+  id: string
+  name: string
+  description: string
+  apps: string[]
+  icon: string
+  color: string
+}
+
+export interface BulkOperation {
+  type: 'grant_access' | 'revoke_access' | 'update_status' | 'update_role'
+  userIds: string[]
+  payload: {
+    apps?: string[]
+    groups?: string[]
+    status?: User['status']
+    role?: User['role']
+  }
+}
+
+export interface AuditLogEntry {
+  id: string
+  userId: string
+  performedBy: string
+  action: string
+  details: Record<string, any>
+  timestamp: string
+}
+
+export interface ChatMessage {
+  id: string
+  userId: string
+  userName: string
+  userRole: UserRole
+  content: string
+  type: 'announcement' | 'comment' | 'question' | 'feedback'
+  tags?: string[]
+  appId?: string
+  parentId?: string
+  timestamp: string
+  isRead?: boolean
+  isPinned?: boolean
+  reactions?: MessageReaction[]
+}
+
+export interface MessageReaction {
+  emoji: string
+  userId: string
+  userName: string
+}
+
+export interface Announcement {
+  id: string
+  content: string
+  priority: 'low' | 'medium' | 'high'
+  createdBy: string
+  createdAt: string
+  expiresAt?: string
+  dismissedBy: string[]
+}
+
+export interface ChatState {
+  messages: ChatMessage[]
+  announcements: Announcement[]
+  unreadCount: number
+  isActivityFeedOpen: boolean
+  isChatModalOpen: boolean
+}
+
 export type UserRole = User['role']
 export type AppStatus = SukutApp['status']
+export type MessageType = ChatMessage['type']
