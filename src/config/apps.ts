@@ -25,15 +25,16 @@ export const SUKUT_APPS: SukutApp[] = [
     version: '1.0.0'
   },
   {
-    id: 'amex-review',
-    name: 'Amex Review',
-    description: 'American Express account management',
-    url: '/amex',
+    id: 'amex-expenses',
+    name: 'American Express Expenses',
+    description: 'Track and manage American Express expenses',
+    url: import.meta.env.VITE_AMEX_URL || 'https://amex.sukutapps.com',
     icon: '💳',
     color: 'bg-purple-500',
     requiredRoles: ['admin', 'manager'],
-    status: 'coming-soon',
-    version: '1.0.0'
+    status: 'active',
+    version: '1.0.0',
+    lastUpdated: '2024-12-14'
   },
   {
     id: 'deferred-rent',
