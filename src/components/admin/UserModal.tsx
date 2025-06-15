@@ -19,7 +19,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, user, users = []
     email: '',
     firstName: '',
     lastName: '',
-    role: 'operator',
+    role: 'user',
     company: 'Sukut Construction',
     department: '',
     permissions: { apps: [], features: [], groups: [] }
@@ -43,7 +43,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, user, users = []
         email: '',
         firstName: '',
         lastName: '',
-        role: 'operator',
+        role: 'user',
         company: 'Sukut Construction',
         department: '',
         permissions: { apps: [], features: [], groups: [] }
@@ -185,7 +185,7 @@ const UserModal: React.FC<UserModalProps> = ({ isOpen, onClose, user, users = []
             <div>
               <h4 className="text-sm font-medium text-gray-900 mb-4">Role</h4>
               <div className="grid grid-cols-2 gap-4">
-                {(['admin', 'manager', 'foreman', 'operator'] as UserRole[]).map((role) => {
+                {(['admin', 'user'] as UserRole[]).map((role) => {
                   const info = getRoleInfo(role)
                   return (
                     <label

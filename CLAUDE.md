@@ -10,6 +10,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run preview` - Preview production build
 - `npm run test` - Run tests with Vitest (configured but no tests implemented yet)
 
+## Deployment Commands
+
+Deploy to production (sukutapps.com):
+```bash
+npm run build
+aws s3 sync dist/ s3://sukutapps-portal-production --delete
+aws cloudfront create-invalidation --distribution-id E2NK7O1X712R54 --paths "/*"
+```
+
 ## Architecture Overview
 
 This is a React 18 TypeScript application built with Vite, serving as a centralized portal for construction management applications.

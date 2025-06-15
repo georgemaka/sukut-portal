@@ -4,8 +4,7 @@ import { useChat } from '../context/ChatContext'
 import AppGrid from '../components/apps/AppGrid'
 import AnnouncementBanner from '../components/chat/AnnouncementBanner'
 import ActivityFeed from '../components/chat/ActivityFeed'
-import ChatBubble from '../components/chat/ChatBubble'
-import FullChatModal from '../components/chat/FullChatModal'
+import EmbeddedChat from '../components/chat/EmbeddedChat'
 
 const DashboardPage: React.FC = () => {
   const { state } = useAuth()
@@ -17,7 +16,6 @@ const DashboardPage: React.FC = () => {
     toggleChatModal,
     sendMessage,
     addReaction,
-    togglePin,
     markAsRead
   } = useChat()
 
@@ -45,9 +43,21 @@ const DashboardPage: React.FC = () => {
           </p>
         </div>
 
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Applications</h2>
-          <AppGrid />
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+          {/* Applications section - spans 2 columns on xl screens */}
+          <div className="xl:col-span-2">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6">Your Applications</h2>
+            <AppGrid />
+          </div>
+
+          {/* Chat section - spans 1 column on xl screens */}
+          <div className="xl:col-span-1">
+            <EmbeddedChat
+              messages={chatState.messages}
+              onSendMessage={sendMessage}
+              onReaction={addReaction}
+            />
+          </div>
         </div>
       </div>
 
@@ -59,25 +69,7 @@ const DashboardPage: React.FC = () => {
         onOpenChat={toggleChatModal}
         onMessageClick={(message) => {
           markAsRead(message.id)
-          toggleChatModal()
         }}
-      />
-
-      {/* Chat Bubble */}
-      <ChatBubble
-        unreadCount={chatState.unreadCount}
-        onClick={toggleChatModal}
-        isOpen={chatState.isChatModalOpen}
-      />
-
-      {/* Full Chat Modal */}
-      <FullChatModal
-        isOpen={chatState.isChatModalOpen}
-        onClose={toggleChatModal}
-        messages={chatState.messages}
-        onSendMessage={sendMessage}
-        onReaction={addReaction}
-        onPin={togglePin}
       />
     </>
   )

@@ -25,7 +25,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'manager@sukut.com',
     firstName: 'Sarah',
     lastName: 'Manager',
-    role: 'manager',
+    role: 'user',
     permissions: { apps: ['market-forecast', 'project-management'], features: ['view_reports'] },
     company: 'Sukut Construction',
     department: 'Operations',
@@ -38,7 +38,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'foreman@sukut.com',
     firstName: 'Mike',
     lastName: 'Foreman',
-    role: 'foreman',
+    role: 'user',
     permissions: { apps: ['project-management', 'equipment-tracking'], features: ['view_projects'] },
     company: 'Sukut Construction',
     department: 'Field Operations',
@@ -51,7 +51,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'operator@sukut.com',
     firstName: 'David',
     lastName: 'Operator',
-    role: 'operator',
+    role: 'user',
     permissions: { apps: ['equipment-tracking'], features: ['view_equipment'] },
     company: 'Sukut Construction',
     department: 'Equipment',
@@ -64,7 +64,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'jane.smith@sukut.com',
     firstName: 'Jane',
     lastName: 'Smith',
-    role: 'manager',
+    role: 'user',
     permissions: { apps: ['market-forecast', 'reports-analytics'], features: ['view_reports'] },
     company: 'Sukut Construction',
     department: 'Finance',
@@ -77,7 +77,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'carlos.rodriguez@sukut.com',
     firstName: 'Carlos',
     lastName: 'Rodriguez',
-    role: 'foreman',
+    role: 'user',
     permissions: { apps: ['project-management', 'equipment-tracking'], features: ['view_projects'] },
     company: 'Sukut Construction',
     department: 'Field Operations',
@@ -90,7 +90,7 @@ const MOCK_ADMIN_USERS: User[] = [
     email: 'new.user@sukut.com',
     firstName: 'New',
     lastName: 'User',
-    role: 'operator',
+    role: 'user',
     permissions: { apps: ['equipment-tracking'], features: ['view_equipment'] },
     company: 'Sukut Construction',
     department: 'Equipment',
@@ -219,9 +219,7 @@ const UserTable: React.FC<UserTableProps> = ({ showUserModal, setShowUserModal }
           >
             <option value="all">All Roles</option>
             <option value="admin">Admin</option>
-            <option value="manager">Manager</option>
-            <option value="foreman">Foreman</option>
-            <option value="operator">Operator</option>
+            <option value="user">User</option>
           </select>
           <select
             value={filterStatus}

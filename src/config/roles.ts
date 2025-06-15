@@ -6,26 +6,12 @@ export const USER_ROLES = {
     apps: ['*'], // Access to all apps
     color: 'text-red-600'
   },
-  manager: {
-    name: 'Manager',
-    description: 'Project oversight and planning access',
-    permissions: ['view_reports', 'manage_projects', 'view_analytics'],
-    apps: ['market-forecast', 'project-management', 'inventory-management', 'reports-analytics', 'safety-compliance'],
+  user: {
+    name: 'User',
+    description: 'Access to granted applications only',
+    permissions: ['view_granted_apps'],
+    apps: [], // Apps will be granted individually
     color: 'text-blue-600'
-  },
-  foreman: {
-    name: 'Foreman',
-    description: 'Field operations and equipment management',
-    permissions: ['view_projects', 'update_progress', 'manage_equipment', 'safety_oversight'],
-    apps: ['project-management', 'equipment-tracking', 'safety-compliance'],
-    color: 'text-green-600'
-  },
-  operator: {
-    name: 'Operator',
-    description: 'Equipment operation and status updates',
-    permissions: ['view_equipment', 'update_status', 'view_safety'],
-    apps: ['equipment-tracking'],
-    color: 'text-yellow-600'
   }
 }
 

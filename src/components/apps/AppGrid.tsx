@@ -25,15 +25,17 @@ const AppGrid: React.FC = () => {
   const handleAppClick = (app: typeof SUKUT_APPS[0]) => {
     if (app.status !== 'active') return
 
-    // Handle different app types
-    if (app.id === 'market-forecast') {
-      // Open market forecast in new tab/window for now
-      // In production, this could be embedded in an iframe
+    // Check if it's an external URL (starts with http:// or https://)
+    const isExternalUrl = app.url.startsWith('http://') || app.url.startsWith('https://')
+    
+    if (isExternalUrl) {
+      // Open external apps in a new tab
       window.open(app.url, '_blank', 'noopener,noreferrer')
     } else {
-      // For future apps, navigate within the portal
-      console.log(`Opening ${app.name}...`)
-      // This would navigate to the app's route within the portal
+      // For internal routes, navigate within the portal
+      // This would be implemented when internal apps are added
+      console.log(`Opening internal app: ${app.name}`)
+      // Future: navigate(app.url)
     }
   }
 

@@ -3,7 +3,7 @@ export interface User {
   email: string
   firstName: string
   lastName: string
-  role: 'admin' | 'manager' | 'foreman' | 'operator'
+  role: 'admin' | 'user'
   permissions: {
     apps: string[]
     features: string[]

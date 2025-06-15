@@ -2,76 +2,28 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react'
 import { AuthState, AuthContextType, User } from '../types'
 import { SUKUT_APPS } from '../config/apps'
 
-// Mock users data for development
+// Initial admin user for setup - to be replaced with real users
 const MOCK_USERS: User[] = [
   {
     id: '1',
     email: 'admin@sukut.com',
-    firstName: 'John',
-    lastName: 'Admin',
+    firstName: 'Admin',
+    lastName: 'User',
     role: 'admin',
     permissions: {
       apps: ['*'],
       features: ['all']
     },
     company: 'Sukut Construction',
-    department: 'IT',
+    department: 'Administration',
     createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: '2024-01-20T10:30:00Z',
-    status: 'active'
-  },
-  {
-    id: '2',
-    email: 'manager@sukut.com',
-    firstName: 'Sarah',
-    lastName: 'Manager',
-    role: 'manager',
-    permissions: {
-      apps: ['market-forecast', 'project-management', 'reports-analytics'],
-      features: ['view_reports', 'manage_projects']
-    },
-    company: 'Sukut Construction',
-    department: 'Operations',
-    createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: '2024-01-19T14:15:00Z',
-    status: 'active'
-  },
-  {
-    id: '3',
-    email: 'foreman@sukut.com',
-    firstName: 'Mike',
-    lastName: 'Foreman',
-    role: 'foreman',
-    permissions: {
-      apps: ['project-management', 'equipment-tracking', 'safety-compliance'],
-      features: ['view_projects', 'update_progress', 'manage_equipment']
-    },
-    company: 'Sukut Construction',
-    department: 'Field Operations',
-    createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: '2024-01-20T08:45:00Z',
-    status: 'active'
-  },
-  {
-    id: '4',
-    email: 'operator@sukut.com',
-    firstName: 'David',
-    lastName: 'Operator',
-    role: 'operator',
-    permissions: {
-      apps: ['equipment-tracking'],
-      features: ['view_equipment', 'update_status']
-    },
-    company: 'Sukut Construction',
-    department: 'Equipment',
-    createdAt: '2024-01-01T00:00:00Z',
-    lastLogin: '2024-01-20T06:30:00Z',
+    lastLogin: new Date().toISOString(),
     status: 'active'
   }
 ]
 
-// Mock password for all users (in production, this would be properly hashed)
-const MOCK_PASSWORD = 'password123'
+// Temporary password for initial setup (should be changed immediately)
+const MOCK_PASSWORD = 'admin123'
 
 type AuthAction = 
   | { type: 'LOGIN_START' }

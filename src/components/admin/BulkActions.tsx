@@ -27,7 +27,7 @@ const BulkActions: React.FC<BulkActionsProps> = ({
   // State for different action types
   const [selectedApps, setSelectedApps] = useState<string[]>([])
   const [selectedGroups, setSelectedGroups] = useState<string[]>([])
-  const [selectedRole, setSelectedRole] = useState<UserRole>('operator')
+  const [selectedRole, setSelectedRole] = useState<UserRole>('user')
   const [selectedStatus, setSelectedStatus] = useState<'active' | 'inactive'>('active')
 
   const handleAction = () => {
@@ -204,7 +204,7 @@ const BulkActions: React.FC<BulkActionsProps> = ({
               {/* Change Role */}
               {actionType === 'update_role' && (
                 <div className="space-y-2">
-                  {(['admin', 'manager', 'foreman', 'operator'] as UserRole[]).map((role) => {
+                  {(['admin', 'user'] as UserRole[]).map((role) => {
                     const roleInfo = getRoleInfo(role)
                     return (
                       <label

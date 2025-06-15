@@ -54,25 +54,16 @@ const AppCard: React.FC<AppCardProps> = React.memo(({ app, onClick }) => {
         <p className="text-gray-600 text-sm leading-relaxed">{app.description}</p>
       </div>
 
-      <div className="flex items-center justify-between text-xs text-gray-500">
-        <div className="flex items-center space-x-4">
-          {app.version && (
-            <span>v{app.version}</span>
-          )}
-          {app.lastUpdated && (
-            <span>Updated {new Date(app.lastUpdated).toLocaleDateString()}</span>
-          )}
-        </div>
-        
-        {isClickable && (
+      {isClickable && (
+        <div className="flex items-center justify-end text-xs text-gray-500">
           <div className="flex items-center text-sukut-primary">
             <span className="mr-1">Open</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {app.status === 'coming-soon' && (
         <div className="mt-4 pt-4 border-t border-gray-100">

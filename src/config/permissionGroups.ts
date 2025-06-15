@@ -38,25 +38,19 @@ export const PERMISSION_GROUPS: PermissionGroup[] = [
 // Default permission groups by role
 export const ROLE_DEFAULT_GROUPS: Record<UserRole, string[]> = {
   admin: ['executive-suite'],
-  manager: ['finance-suite'],
-  foreman: ['basic-access'],
-  operator: []
+  user: ['basic-access']
 }
 
 // Default individual app permissions by role (for apps not in groups)
 export const ROLE_DEFAULT_APPS: Record<UserRole, string[]> = {
   admin: ['*'], // Admins get all apps by default
-  manager: ['market-forecast', 'amex-review'],
-  foreman: ['market-forecast'],
-  operator: []
+  user: ['market-forecast']
 }
 
 // Default feature permissions by role
 export const ROLE_DEFAULT_FEATURES: Record<UserRole, string[]> = {
   admin: ['all'],
-  manager: ['view_reports', 'edit_own_data', 'export_data'],
-  foreman: ['view_projects', 'edit_own_data'],
-  operator: ['view_equipment', 'view_own_data']
+  user: ['view_reports', 'edit_own_data', 'view_own_data']
 }
 
 export const getGroupById = (id: string): PermissionGroup | undefined => {

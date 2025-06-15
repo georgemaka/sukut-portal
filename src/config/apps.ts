@@ -8,7 +8,7 @@ export const SUKUT_APPS: SukutApp[] = [
     url: import.meta.env.VITE_MARKET_FORECAST_URL || 'http://localhost:3000',
     icon: '📊',
     color: 'bg-blue-500',
-    requiredRoles: ['admin', 'manager'],
+    requiredRoles: ['admin', 'user'], // Can be granted to users
     status: 'active',
     version: '2.1.0',
     lastUpdated: '2024-01-15'
@@ -20,7 +20,7 @@ export const SUKUT_APPS: SukutApp[] = [
     url: '/equity',
     icon: '💼',
     color: 'bg-green-500',
-    requiredRoles: ['admin'],
+    requiredRoles: ['admin'], // Admin only
     status: 'coming-soon',
     version: '1.0.0'
   },
@@ -31,7 +31,7 @@ export const SUKUT_APPS: SukutApp[] = [
     url: import.meta.env.VITE_AMEX_URL || 'https://amex.sukutapps.com',
     icon: '💳',
     color: 'bg-purple-500',
-    requiredRoles: ['admin', 'manager'],
+    requiredRoles: ['admin', 'user'], // Can be granted to users
     status: 'active',
     version: '1.0.0',
     lastUpdated: '2024-12-14'
@@ -43,7 +43,7 @@ export const SUKUT_APPS: SukutApp[] = [
     url: '/rent',
     icon: '🏢',
     color: 'bg-yellow-500',
-    requiredRoles: ['admin'],
+    requiredRoles: ['admin'], // Admin only
     status: 'coming-soon',
     version: '1.0.0'
   }

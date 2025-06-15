@@ -21,8 +21,7 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo and navigation */}
           <div className="flex items-center space-x-8">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="text-2xl">🏗️</div>
+            <Link to="/" className="flex items-center">
               <div className="text-xl font-bold text-sukut-primary">Sukut Portal</div>
             </Link>
 
@@ -46,14 +45,6 @@ const Header: React.FC = () => {
 
           {/* User menu */}
           <div className="flex items-center space-x-4">
-            {/* Notifications */}
-            <button className="p-2 text-gray-400 hover:text-gray-500 relative">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-3.5-3.5a5.002 5.002 0 10-7.071 0L12 17h5zM9 12h.01M15 12h.01" />
-              </svg>
-              <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-400"></span>
-            </button>
-
             {/* Profile dropdown */}
             <div className="relative">
               <button
